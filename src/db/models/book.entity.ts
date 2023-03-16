@@ -7,12 +7,13 @@ import {
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
-import BookGenre from './book-genre.entity';
+// import BookGenre from './book-genre.entity';
 import Author from './author.entity';
 import { Field, ObjectType } from 'type-graphql';
+import Genre from './genre.entity';
 
 @ObjectType()
-@Entity({name: 'books'})
+@Entity({ name: 'books' })
 export default class Book {
 
   @Field()
@@ -24,26 +25,34 @@ export default class Book {
   title: string;
 
   @Field()
-  @Column({name: 'author_id'})
+  @Column({ name: 'author_id' })
   authorId: number;
 
+  @Column({ name: 'genre_id' })
+  genreId: number;
+
   @Field()
-  @CreateDateColumn({name: 'created_at'})
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @Field()
-  @UpdateDateColumn({name: 'updated_at'})
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
   @Field(() => Author)
   author: Author;
+
+  @Field(() => Genre)
+  @ManyToOne(() => Genre, genre => genre.books)
+  @JoinColumn({ name: 'genre_id', referencedColumnName: 'id' })
+  genre: Promise<Genre>;
   // Associations
 
-  @ManyToOne(() => Author, author => author.bookConnection, {primary:
-      true})
-  @JoinColumn({name: 'author_id'})
-  authorConnection: Promise<Author>;
+  // @ManyToOne(() => Author, author => author.bookConnection, {
+  //   primary:
+  //     true
+  // })
+  // @JoinColumn({ name: 'author_id' })
+  // authorConnection: Promise<Author>;
 
-  @OneToMany(() => BookGenre, bookGenre => bookGenre.genre)
-  genreConnection: Promise<BookGenre[]>;
 }

@@ -5,18 +5,18 @@ import Book from '../db/models/book.entity';
 import BookInput from './input/book.input';
 import Genre from '../db/models/genre.entity';
 import GenreInput from './input/genre.input';
-import BookGenre from '../db/models/book-genre.entity';
+// import BookGenre from '../db/models/book-genre.entity';
 import { IGraphQLContext } from '../types/graphql.types';
 
 @Resolver(Genre)
 class GenreResolver {
 
-  constructor(private readonly repoService: RepoService) {}
+  constructor(private readonly repoService: RepoService) { }
   @Query(() => [Genre])
   public async genres(): Promise<Genre[]> {
     return this.repoService.genreRepo.find();
   }
-  @Query(() => Genre, {nullable: true})
+  @Query(() => Genre, { nullable: true })
   public async genre(@Args('id') id: number): Promise<Genre> {
     return this.repoService.genreRepo.findOne(id);
   }
@@ -29,7 +29,7 @@ class GenreResolver {
   }
 
   @ResolveProperty()
-  public async book(@Parent() parent, @Context() {genreBooksLoader}: IGraphQLContext): Promise<Book[]> {
+  public async books(@Parent() parent, @Context() { genreBooksLoader }: IGraphQLContext): Promise<Book[]> {
     return genreBooksLoader.load(parent.id);
   }
 }

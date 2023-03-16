@@ -4,7 +4,7 @@ import RepoService from './repo.service';
 import Author from './db/models/author.entity';
 import Book from './db/models/book.entity';
 import Genre from './db/models/genre.entity';
-import BookGenre from './db/models/book-genre.entity';
+// import BookGenre from './db/models/book-genre.entity';
 
 @Global()
 @Module({
@@ -13,7 +13,7 @@ import BookGenre from './db/models/book-genre.entity';
       Author,
       Book,
       Genre,
-      BookGenre,
+      // BookGenre,
     ]),
   ],
   providers: [RepoService],

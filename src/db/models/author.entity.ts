@@ -3,7 +3,7 @@ import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Up
 import Book from './book.entity';
 
 @ObjectType()
-@Entity({name: 'authors'})
+@Entity({ name: 'authors' })
 export default class Author {
 
   @Field()
@@ -15,15 +15,15 @@ export default class Author {
   name: string;
 
   @Field()
-  @CreateDateColumn({name: 'created_at'})
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @Field()
-  @UpdateDateColumn({name: 'updated_at'})
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
   // Associations
-  @OneToMany(() => Book, book => book.authorConnection)
-  bookConnection: Promise<Book[]>;
+  @OneToMany(() => Book, book => book.author)
+  books: Promise<Book[]>;
 
 }

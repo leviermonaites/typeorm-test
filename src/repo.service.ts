@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import Author from './db/models/author.entity';
 import Book from './db/models/book.entity';
 import Genre from './db/models/genre.entity';
-import BookGenre from './db/models/book-genre.entity';
+// import BookGenre from './db/models/book-genre.entity';
 
 @Injectable()
 class RepoService {
@@ -12,8 +12,8 @@ class RepoService {
     @InjectRepository(Author) public readonly authorRepo: Repository<Author>,
     @InjectRepository(Book) public readonly bookRepo: Repository<Book>,
     @InjectRepository(Genre) public readonly genreRepo: Repository<Genre>,
-    @InjectRepository(BookGenre) public readonly bookGenreRepo: Repository<BookGenre>,
-  ) {}
+    // @InjectRepository(BookGenre) public readonly bookGenreRepo: Repository<BookGenre>,
+  ) { }
 }
 
 export default RepoService;
